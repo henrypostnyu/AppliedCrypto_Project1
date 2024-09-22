@@ -1,0 +1,87 @@
+Ciphertext: QJKESREOGHGXXREOXEO
+PlainText: IFYOUBOWATALLBOWLOW
+
+Let an affine cipher be defined by the equiation C = (A * p + b) modulo m
+Let C, A, p, b, m be elements of Z (the set of integers)
+Where p corresponds to the order of the corresponding integer for a A letter (e.g. A = 0, B = 1, etc), and C is integer corresponding to the
+encrypted letter.
+
+We are given the letter 'T' is encrypted to 'H' and 'O' to 'E', we also know that m = 26 because the affine cipher uses every letter
+of the alphabet. Therefore we know:
+
+19 -> 7, 14 -> 4
+
+Yielding the following equations:
+
+7 = (19A + b) mod 26
+and
+4 = (14A + b) mod 26
+
+Because addition and multiplication are well-defined under modulus operation, we know the following:
+
+[a]m + [b]m = [a+b]m 
+and
+[a]m * [b]m = [ab]m 
+
+where [a] and [b] are the representative congruence classes, containing the set of all integers x,y satisfying the equation 
+x mod m = a and y mod m = b.
+
+This mathematical property allows us to rearrange the equations as follows to solve for A. 
+
+7 - 4 = [(19A + b) mod 26] - [(14A + b) mod 26]
+3 = 19A mod 26 - 15A mod 26
+3 = 5A mod 26
+
+For the affine cipher to be able to both encrypt and decrypt, the modulo multiplicative inverse must exist. This occurs when 
+A and m and relatively prime (the only factor they have in common is 1). Therefore, we know the only possible values of A are:
+1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25.
+
+The value of A can be obtained by trying each of these values until we satisfy:
+
+3 = 5A mod 26
+
+finding A = 11.  
+
+With A = 11, we can now solve for b using the encryption equations for either of the known values
+
+4 = (14 * 11 + b) mod 26
+4 = (154) mod 26 + b mod 26
+4 = 24 + b mod 26
+b = 6
+
+
+With the value of A and b known, there are two options to decrypt the message. You can either using C = 11p + 6 to encrypt 0 - 25, yielding 
+the following key: GRCNYJUFQBMXITEPALWHSDOZKV, where:
+
+G = A
+R = B
+C = C
+...
+Z = X
+K = Y
+V = Z
+
+Alternatively, now that we know the value of A, we can calculate the modulo multiplicative inverse, or in mathematical terms, a 
+value A' (said A-prime, or A-inverse) such at (A * A') mod 26  = 1. We can derive the following formula for decryption:
+
+P = [A' * (c - b)] mod m
+
+for example, using our known values, we can verify:
+
+[19 * (4 - 6)] mod 26 = 14
+[19 * (7 - 6)] mod 26 = 19
+where 4 is the integer representation of E, the ciphertext of plaintext O. 
+
+Mapping the ciphertext according to A = 0, B = 1, etc. yeilds the following numeric cipher:
+Q  - J - K  - E - S  - R  - E - O  - G - H - G - X  - X  - R  - E - O  - X  - E  - O 
+
+16 - 9 - 10 - 4 - 18 - 17 - 4 - 14 - 6 - 7 - 6 - 23 - 23 - 17 - 4 - 14 - 23 - 4 - 14 
+
+plugging into our formula yields:
+[19 * (16 - 6)] mod 26 = 8 = I 
+[19 * (9 - 6)] mod 26 = 15 = F
+...
+[19 * (14 - 6)] mod 26 = 22 = W
+
+Ultimately yielding plainText: IFYOUBOWATALLBOWLOW
+

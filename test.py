@@ -9,25 +9,22 @@ from typing import List
 ciphertext = 'QJKESREOGHGXXREOXEO'
 plaintext = 'CRYPTOISFUN'
 
-plaintext_from_ciphertext = {}
-plaintext_from_plainint = {}
-plaintext_from_cipherInt = {}
+# plaintext_from_ciphertext = {}
+# plaintext_from_plainint = {}
+# plaintext_from_cipherInt = {}
 
 ciphertext_from_plaintext = { "T":"H", "O":"E"}
-ciphertext_from_cipherInt = {}
-ciphertext_from_plainInt = {}
+# ciphertext_from_cipherInt = {}
+# ciphertext_from_plainInt = {}
 
 plainInt_from_plaintext = {}
-plainInt_from_ciphertext = {}
-plainInt_from_cipherInt = {}
+# plainInt_from_ciphertext = {}
+# plainInt_from_cipherInt = {}
 
 cipherInt_from_plaintext = {}
-cipherInt_from_ciphertext = {}
-cipherInt_from_plainInt = {}
+# cipherInt_from_ciphertext = {}
+# cipherInt_from_plainInt = {}
 
-
-
-#letter 'T' is encrypted to 'H' and 'O' to 'E'.
 
 # Function to compute modular inverse of a mod m using the extended Euclidean algorithm
 def modular_inverse(a: int, m: int) -> int:
@@ -85,8 +82,6 @@ def decrypt_string(affine_a, affine_b,ciphertext: str) -> str:
     return int_list_to_string(decrypted_ints)  # Convert back to letters
 
 
-
-
 def solve_encryption():   
     
     #Map the known information to integer value / set up all the dictionaries
@@ -100,24 +95,40 @@ def solve_encryption():
         cInt = string_to_int_list(c)[0]
 
 
-        plaintext_from_ciphertext[c] = p
-        plaintext_from_plainint[pInt]=p
-        plaintext_from_cipherInt[cInt]=p
+        # plaintext_from_ciphertext[c] = p
+        # plaintext_from_plainint[pInt]=p
+        # plaintext_from_cipherInt[cInt]=p
 
-        #ciphertext_from_plaintext = {
-        ciphertext_from_cipherInt[cInt]=c
-        ciphertext_from_plainInt[pInt]=c
+        # #ciphertext_from_plaintext = {
+        # ciphertext_from_cipherInt[cInt]=c
+        # ciphertext_from_plainInt[pInt]=c
 
         plainInt_from_plaintext[p]=pInt
-        plainInt_from_ciphertext[c]=pInt
-        plainInt_from_cipherInt[cInt]=pInt
+        # plainInt_from_ciphertext[c]=pInt
+        # plainInt_from_cipherInt[cInt]=pInt
 
         cipherInt_from_plaintext[p]=cInt
-        cipherInt_from_ciphertext[c]=cInt
-        cipherInt_from_plainInt[pInt]=cInt
+        # cipherInt_from_ciphertext[c]=cInt
+        # cipherInt_from_plainInt[pInt]=cInt    
 
+    '''
+    the conguence class of a mod 26 is well defined under multiplication and division
+    [a] mod 26 + [b] mod 26 = [a+b] mod 26 
+    and 
+     [a] mod 26 * [b] mod 26 = [ab] mod 26 
 
-   
+     we can we can rearrange  C = (Ap + b) mod 26 
+    C = A mod 26 * p mod 26 + b mod 26
+    yielding
+
+    A mod 26 * p1 mod 26 + b mod 26 - (A mod 26 * p2 mod 26 + b mod 26) = C2 - C1, allowing us to solve for the value of A used in 
+    encryption.
+
+    and further simplified to
+
+    A mod 26 * (p1 - p2) = c1 - c2 
+
+    '''
     factor = (plainInt_from_plaintext["T"] - plainInt_from_plaintext["O"]) 
     c1minusc2 = cipherInt_from_plaintext["T"] - cipherInt_from_plaintext["O"]
 
@@ -142,9 +153,6 @@ def solve_encryption():
         i += 1
 
     return [affine_A,affine_b]
-
-
-    
 
 affine_Ab_values = solve_encryption()
 
