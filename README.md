@@ -1,7 +1,5 @@
 # AppliedCrypto_Project1
 
-https://colab.research.google.com/drive/1u0SsRx_f9VDhEmASwDZr7zZOMN1wci-t?usp=sharing#scrollTo=1hOux3kBCnJF
-
 Applied Crypto
 CS-GY 6903 CF01/CF02
 Insights from Classic Ciphers and Enigma Machine
