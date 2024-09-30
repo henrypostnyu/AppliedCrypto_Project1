@@ -16,7 +16,6 @@ def run_enigma(initial_display,message):
 
     machine = EnigmaMachine([rL, rM, rR], reflector, pb) # Params = rotors, reflector, plugboard
     machine.set_display(initial_display) # set rotor positions or use its default
-    position = machine.get_display() # read rotor position
 
     c = machine.process_text(message)
     return c
@@ -34,25 +33,33 @@ if __name__ == '__main__':
     print('\nm = ',m)
     found = False
 
-    i = 0
-    j = 0
-    k = 0
+    #Run through all combinations of initial settings
 
-    while k < 26:
+    #numerical representations (A=0,etc) for initial position for rL (i), rM (j), RR (k)
+    i = 0 
+    j = 0 
+    k = 0
+    
+    while k < 26: #while third rotor hasnt exhausted all positions
+        #convert the numbers to a list and store as a string
+        #mod 26 to avoid resetting values to zero each rotor cycles through its initital position
         initial_settings = str(int_list_to_string([i%26,j%26,k%26]))
+
+        #pass the string into the run enigma with the message
         result = run_enigma(initial_settings,m)
         
-        if(result == m2):
+        if(result == m2): #Check the result against the known value
             found = True
-            break
+            break #if a match is found stop looking
 
-        i += 1
+        i += 1 #otherwise keep incrementing until we try all 3 letter combinations
         if(i > 0 and i % 26 == 0):
-            j += 1
+            j += 1 
         if(j > 0 and j % 26 == 0):
             j = 0
             k += 1
 
+    #output
     if(found):
         print("************************INITIAL SETTINGS FOUND after ",i," cycles:  ",initial_settings)
     else:
