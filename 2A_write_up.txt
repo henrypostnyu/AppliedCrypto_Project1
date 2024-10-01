@@ -1,0 +1,23 @@
+Problem 2 Frequency Analysis
+Alice has crafted a message for Bob using a simple substitution cipher. The encrypted message,
+segmented is "TNFOS FOZSW PZLOC GQAOZ WAGQR PJZPN ABCZP QDOGR AMTHA RAXTB
+AGZJO GMTHA RAVAP ZW", where spaces are not part of the original encryption and are added only
+for convenience. Eve, who has intercepted the message, knows that the word "liberty" appears somewhere
+in the plaintext.
+
+2a) Calculate the Size of the Key Space. Explain how the key space is calculated and its implications for
+the cipher's security.
+
+Determining the size of the Key Space is an exercise in both determining the algorithm used for encyption as well as determining the length of the key space.  Frequency Analysis of a ciphertext can be used to determine the plaintext when a simple substitution cipher is used, such as with Mono-alphabetic Substitution Ciphers. Given that English has 26 letters in the English alphabet there are 26! factorial possible permutations of these letters.
+
+Our first approach was to attempt using the Caesar Cipher as each shift of the alphabet is straightforward to validate for a possible solution. After confirming a Caesar Cipher was not used, we moved used Frequency Analysis of the message and tried swapping the most frequent occuring letters with the letters that appear most frequently in the Enlish language. In the ciphertext, the two most common letters were Z and A. In English the letters E and T are two of the most common letters, so we looked for places in the message where Z and A were close enough that they could map to Liberty in a plaintext message.
+
+To speed up the process of iterating through each possible letter we created a python program which would use a map to swap the placement of a letter in the cipher text for a letter in the plaintext. Through a lot of trial and error, we eventually determined the message was, "I KNOW NOT WHAT COURSE OTHERS MAY TAKE BUT AS FOR ME GIVE ME LIBERTY OR GIVE ME DEATH". 
+
+
+2b) Given Eve's knowledge that the word "liberty" is in the plaintext, devise a strategy to decrypt the
+message. This task requires analyzing the ciphertext, making educated guesses, and testing hypotheses
+about the cipher's key. Your goal is to uncover the original message sent by Alice to Bob. You solve it
+manually.
+
+To decode the message, we created a python program which would swap letters in the ciphertext to decode the plaintext message. By swapping out the most common letters in the English language we were able to iterative decode the message until we found the full plaintext phrase which was made famous by the American Revolution leader Patrick Henry, "I KNOW NOT WHAT COURSE OTHERS MAY TAKE BUT AS FOR ME GIVE ME LIBERTY OR GIVE ME DEATH"
